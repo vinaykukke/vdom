@@ -1,0 +1,19 @@
+{
+  "name": "vdom",
+  "version": "1.0.0",
+  "description": "This is my own version of virtual DOM",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vinaykukke/vdom.git"
+  },
+  "author": "Vinay Kukke <kukke06@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vinaykukke/vdom/issues"
+  },
+  "homepage": "https://github.com/vinaykukke/vdom#readme"
+}
