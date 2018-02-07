@@ -2,7 +2,7 @@ const path = require('path');
 const babelConf = require('./.babelrc.json');
 
 module.exports = {
-	entry: path.resolve(__dirname, '..', 'index.ts'),
+	entry: path.resolve(__dirname, '..', 'client', 'index.ts'),
 	output: {
 		path: path.resolve('dist'),
 		filename: 'client.bundle.js'
