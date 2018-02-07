@@ -4,6 +4,8 @@
   "description": "This is my own version of virtual DOM",
   "main": "index.js",
   "scripts": {
+    "build": "node src/build/webpack.js",
+    "start": "yarn build && nodemon src/server/index.js",
     "test": "jest"
   },
   "repository": {
@@ -15,5 +17,21 @@
   "bugs": {
     "url": "https://github.com/vinaykukke/vdom/issues"
   },
-  "homepage": "https://github.com/vinaykukke/vdom#readme"
+  "homepage": "https://github.com/vinaykukke/vdom#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-jest": "^22.2.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "jest": "^22.2.1",
+    "nodemon": "^1.14.12",
+    "ts-loader": "^3.4.0",
+    "typescript": "^2.7.1",
+    "webpack": "^3.10.0"
+  }
 }
