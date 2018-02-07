@@ -2,7 +2,7 @@ const path = require('path');
 const babelConf = require('./.babelrc.json');
 
 module.exports = {
-	entry: path.resolve(__dirname, '..', 'client', 'index.ts'),
+	entry: path.resolve(__dirname, '..', 'client', 'index.tsx'),
 	output: {
 		path: path.resolve('dist'),
 		filename: 'client.bundle.js'
@@ -10,7 +10,7 @@ module.exports = {
 	module: {
 		rules: [
 			{
-				test: /\.ts?$/,
+				test: /\.tsx?$/,
 				exclude: /node_modules/,
 				use: [
 					{
@@ -29,9 +29,8 @@ module.exports = {
 	},
 	resolve: {
 		alias: {
-			Types: path.resolve(__dirname, '..', 'client', 'types'),
-			Helpers: path.resolve(__dirname, '..', 'client', 'helpers'),
+			Lib: path.resolve(__dirname, '..', 'lib'),
 		},
-		extensions: ['.js', '.ts', '.json', '*'],
+		extensions: ['.js', '.jsx', '.ts', '.tsx', '.json', '*'],
 	}
 };
