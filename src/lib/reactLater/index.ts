@@ -17,7 +17,7 @@ function setProps(element: HTMLElement, props: Object) {
  */
 function createElement(node: IVdom): HTMLElement | Text {
   const el: HTMLElement = document.createElement(node.type);
-  setProps(el, node.props);
+  node.props && setProps(el, node.props);
   if (typeof node === 'string') {
     return document.createTextNode(node);
   }
