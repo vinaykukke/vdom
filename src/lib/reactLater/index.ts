@@ -1,16 +1,34 @@
 import { IVdom } from './types';
 
+/**
+ * This method only attaches events to the DOM node
+ * @param props An object that contains all the props for the element
+ * @param propName The name of the prop event that you want to attach to the DOM node
+ */
+function addEvent(props, propName) {
+  const event = propName.substring(2).toLowerCase();
+  this.addEventListener(event, props[propName])
+}
+
+/**
+ * This function set the HTML properties provided to the element provided.
+ * @param element An HTML element to attach the props on
+ * @param props The properties that you need to attach
+ */
 function setProps(element: HTMLElement, props: Object) {
   Object.keys(props).forEach(propName => {
     if (propName === 'className') {
       return element.setAttribute('class', props[propName])
+    }
+    if (typeof props[propName] === 'function') {
+      addEvent.call(element, props, propName);
     }
     element.setAttribute(propName, props[propName])
   });
 }
 
 /**
- * This is the method that actuall generates real DOM Nodes.
+ * This is the method that actually generates real DOM Nodes.
  * This function is recursive.
  * @param node A node of type `IVdom`
  * @returns A text node or HTML element
