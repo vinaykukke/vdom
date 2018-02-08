@@ -10,7 +10,7 @@
     "allowSyntheticDefaultImports": true,
     "target": "ESNext",
     "paths": {
-      "Lib": ["src/lib/*"]
+      "Lib/*": ["src/lib/*"]
     }
   }
 }
