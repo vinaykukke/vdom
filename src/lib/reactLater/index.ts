@@ -1,12 +1,23 @@
 import { IVdom } from './types';
 
+function setProps(element: HTMLElement, props: Object) {
+  Object.keys(props).forEach(propName => {
+    if (propName === 'className') {
+      return element.setAttribute('class', props[propName])
+    }
+    element.setAttribute(propName, props[propName])
+  });
+}
+
 /**
- * This is the method that actuall generates real DOM Nodes
+ * This is the method that actuall generates real DOM Nodes.
+ * This function is recursive.
  * @param node A node of type `IVdom`
  * @returns A text node or HTML element
  */
 function createElement(node: IVdom): HTMLElement | Text {
   const el: HTMLElement = document.createElement(node.type);
+  setProps(el, node.props);
   if (typeof node === 'string') {
     return document.createTextNode(node);
   }
@@ -33,10 +44,10 @@ function flatten(arr: any[]): any[] {
 
 /**
  * This is the methos that `babel-plugin-transform-react-jsx` will call
- * to generate real DOM nodes.
+ * to generate real VDOM Objects.
  * @param type A regular string
  * @param props A JS Object
- * @param children An array of JS Objects
+ * @param children An array of JS Objects or a list of comma seperated values
  * @returns An Object of type `IVdom`
  */
 export function vdom(type: string, props: Object, ...children: Object[]): IVdom {
