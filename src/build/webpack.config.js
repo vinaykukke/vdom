@@ -30,7 +30,7 @@ module.exports = {
 	},
 	plugins: [
 		new ProvidePlugin({
-			h: path.resolve(__dirname, '..', 'lib', 'reactLater'),
+			reactLater: path.resolve(__dirname, '..', 'lib', 'reactLater'),
 		}),
 	],
 	resolve: {

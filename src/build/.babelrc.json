@@ -15,7 +15,7 @@
   ],
   "plugins": [
     ["transform-react-jsx", {
-      "pragma": "h.default"
+      "pragma": "reactLater.default"
     }]
   ]
 }
