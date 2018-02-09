@@ -1,5 +1,4 @@
 import { render } from 'Lib/reactLater';
-import 'Lib/reactLater';
 import Form from './components/Form';
 
 function view() {
