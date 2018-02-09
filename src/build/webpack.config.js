@@ -1,5 +1,6 @@
 const path = require('path');
 const babelConf = require('./.babelrc.json');
+const ProvidePlugin = require('webpack/lib/ProvidePlugin');
 
 module.exports = {
 	entry: path.resolve(__dirname, '..', 'client', 'index.tsx'),
@@ -27,6 +28,11 @@ module.exports = {
 			},
 		]
 	},
+	plugins: [
+		new ProvidePlugin({
+			h: path.resolve(__dirname, '..', 'lib', 'reactLater'),
+		}),
+	],
 	resolve: {
 		alias: {
 			Lib: path.resolve(__dirname, '..', 'lib'),

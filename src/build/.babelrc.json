@@ -4,19 +4,18 @@
     [
       "env",
       {
-        "modules": false,
         "targets": {
           "browsers": [
             "chrome >= 59"
           ]
         }
       }
-    ]
+    ],
+    "es2015"
   ],
   "plugins": [
-    "transform-async-to-generator",
     ["transform-react-jsx", {
-      "pragma": "vdom"
+      "pragma": "h.default"
     }]
   ]
 }

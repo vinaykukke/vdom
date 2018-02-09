@@ -1,13 +1,13 @@
-import render, { vdom } from 'Lib/reactLater';
+import { render } from 'Lib/reactLater';
+import 'Lib/reactLater';
+import Form from './components/Form';
 
-function view(vdom) {
+function view() {
   return <div className='test-class' id='rrr'>
     <h3>This works</h3>
-    <div>This works</div>
-    <div>This works</div>
-    <div>This works</div>
+    { Form() }
   </div>;
 }
 
 const rootElement = document.getElementById('root');
-render(view(vdom), rootElement);
+render(view(), rootElement);
