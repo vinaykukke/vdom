@@ -25,7 +25,7 @@ export default function h(type: TComponent, props: Object, ...children: Object[]
 
   if (typeof type === 'function') {
     const instance = new type(props);
-    return instance.render();
+    return instance.render ? instance.render() : instance;
   }
 
   return { type, props, children: flatten(children) }

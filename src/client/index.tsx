@@ -1,7 +1,7 @@
 import reactLaterDOM from 'Lib/reactLaterDOM';
 import Form from './components/Form';
 
-function view() {
+function View() {
   return <div className='test-class' id='rrr'>
     <h3>This works</h3>
     <Form test={'test'}/>
@@ -9,4 +9,4 @@ function view() {
 }
 
 const rootElement = document.getElementById('root');
-reactLaterDOM.render(view(), rootElement);
+reactLaterDOM.render(<View />, rootElement);

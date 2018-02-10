@@ -14,6 +14,8 @@ class Form extends Component {
 
   render() {
     return <div>
+      {this.props.test}
+      <br/>
       <input type='text' placeholder='Enter you name' />
       <input type='password' placeholder='Enter you password' />
       <button onClick={this.someFunc.bind(this)}>Submit</button>
