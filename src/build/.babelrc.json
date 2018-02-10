@@ -15,6 +15,7 @@
   "plugins": [
     ["transform-react-jsx", {
       "pragma": "h.default"
-    }]
+    }],
+    "syntax-jsx"
   ]
 }

@@ -1,5 +1,6 @@
 import { IVdom } from '../types';
 import { createElement } from 'Lib/reactLaterDOM';
+import Component from './component';
 
 // Globally scoped VDOM object for reference.
 let vdomTree: IVdom;
@@ -25,13 +26,19 @@ function setVdomTree(tree: IVdom) {
  * @param newNode The `newNode` with all the changes
  * @param oldNode The `oldNode`to compare wtih the `newNodes`
  */
-function diff(node: IVdom) {
+function diff(oldNode: IVdom, newNode: IVdom) {
   // Compare effectively the node object with the vdomTree object
   // And return the changes/ differences OR return an object with the actions type and the changes
   // This should then go to a `patch()` function that should work based on the action type
   // TODO: you need to split up thhe initial render and the render of the components.
   // Initial render will create the vdomTree but the component render 
   // will be recurrsive calling itself and checking the diff()
+  if (!oldNode) {
+    return { type: CREATE, node: newNode }
+  }
+  if (!newNode) {
+    return { type: REMOVE }
+  }
 }
 
 /** 
@@ -39,7 +46,9 @@ function diff(node: IVdom) {
  * @param {HTMLElement} element This is the `VDOM JS Object`.
  * At the time of render this object will contain the entire VDOM.
  * */
-export function render(element: IVdom, rootElement: HTMLElement) {
+function render(element: IVdom, rootElement: HTMLElement) {
   setVdomTree(element);
   rootElement.appendChild(createElement(element));
 }
+
+export { render, Component };

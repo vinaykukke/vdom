@@ -14,12 +14,18 @@ function flatten(arr: any[]): any[] {
  * is setup to call to generate VDOM Objects.
  * The `h` in the method name stands for `hyperscript`.
  * In `client.bundle.js` this method will be called by `realtLater.default()`
- * @param type A regular string
+ * @param type A regular string OR function
  * @param props A JS Object
  * @param children An array of JS Objects or a list of comma seperated values
  * @returns An Object of type `IVdom`
  */
-export default function h(type: string, props: Object, ...children: Object[]): IVdom {
+export default function h(type: FunctionConstructor | string, props: Object, ...children: Object[]): IVdom {
   props = props || {};
+
+  if (typeof type === 'function') {
+    const instance = new type();
+    return instance.render();
+  }
+
   return { type, props, children: flatten(children) }
 }

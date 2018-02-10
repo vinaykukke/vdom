@@ -1,11 +1,24 @@
-import reactLater from 'Lib/reactLater';
+import { Component } from 'Lib/reactLater';
 
-const Form = () => {
-  return<div>
-    <input type='text' placeholder='Enter you name' />
-    <input type='password' placeholder='Enter you password' />
-    <button onClick={() => console.log('Click works')}>Submit</button>
-  </div>
+class Form extends Component {
+  constructor() {
+    super();
+    this.state = {
+      test: ''
+    }
+  }
+
+  someFunc() {
+    this.setState({test: 'hello'});
+  }
+
+  render() {
+    return <div>
+      <input type='text' placeholder='Enter you name' />
+      <input type='password' placeholder='Enter you password' />
+      <button onClick={this.someFunc.bind(this)}>Submit</button>
+    </div>
+  }
 }
 
 export default Form;
