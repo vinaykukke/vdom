@@ -2,8 +2,8 @@ export default class Component {
   public props;
   public state;
   
-  constructor() {
-    this.props = {}
+  constructor(props) {
+    this.props = props;
   }
 
   setState(state: Object) {

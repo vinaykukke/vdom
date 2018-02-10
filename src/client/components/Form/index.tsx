@@ -1,8 +1,8 @@
 import { Component } from 'Lib/reactLater';
 
 class Form extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       test: ''
     }

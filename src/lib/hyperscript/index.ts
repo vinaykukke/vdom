@@ -19,11 +19,12 @@ function flatten(arr: any[]): any[] {
  * @param children An array of JS Objects or a list of comma seperated values
  * @returns An Object of type `IVdom`
  */
-export default function h(type: FunctionConstructor | string, props: Object, ...children: Object[]): IVdom {
+type TComponent = ObjectConstructor | string;
+export default function h(type: TComponent, props: Object, ...children: Object[]): IVdom {
   props = props || {};
 
   if (typeof type === 'function') {
-    const instance = new type();
+    const instance = new type(props);
     return instance.render();
   }
 
