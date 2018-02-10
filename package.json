@@ -34,6 +34,7 @@
     "nodemon": "^1.14.12",
     "ts-loader": "^3.4.0",
     "typescript": "^2.7.1",
+    "uglifyjs-webpack-plugin": "^1.1.8",
     "webpack": "^3.10.0"
   }
 }

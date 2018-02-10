@@ -1,4 +1,4 @@
-import { render } from 'Lib/reactLater';
+import { render } from 'Lib/reactLaterDOM';
 import Form from './components/Form';
 
 function view() {

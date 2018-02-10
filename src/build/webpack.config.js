@@ -30,7 +30,7 @@ module.exports = {
 	},
 	plugins: [
 		new ProvidePlugin({
-			reactLater: path.resolve(__dirname, '..', 'lib', 'reactLater'),
+			h: path.resolve(__dirname, '..', 'lib', 'hyperscript'),
 		}),
 	],
 	resolve: {
