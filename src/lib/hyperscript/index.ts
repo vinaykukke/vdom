@@ -1,3 +1,5 @@
+import { IVdom } from '../types';
+
 /**
  * This method just flattens the given nested array to just one level
  * @param arr A regular array of objects (Regular or nested)
