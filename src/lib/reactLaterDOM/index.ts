@@ -8,8 +8,7 @@ let vdomTreeOriginal: IVdom;
  * @param tree This is the virtual DOM tree
  */
 function setVdomTree(tree: IVdom) {
-  vdomTreeOriginal = tree;
-  Object.freeze(vdomTreeOriginal); // Making the VDOM tree immutable
+  vdomTreeOriginal = Object.freeze(tree); // Making the VDOM tree immutable
 }
 
 /**
