@@ -4,19 +4,19 @@ class Form extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      test: ''
+      test: 'state'
     }
   }
 
   someFunc() {
-    this.setState({test: 'hello'});
+    this.setState({test: 'hello new state'});
   }
 
   render() {
     return <div>
-      {this.props.test}
+      {this.state.test}
       <br/>
-      <input type='text' placeholder='Enter you name' />
+      <input type='text' placeholder='Enter you name' state={this.state}/>
       <input type='password' placeholder='Enter you password' />
       <button onClick={this.someFunc.bind(this)}>Submit</button>
     </div>
