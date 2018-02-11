@@ -1,14 +1,14 @@
 import { IVdom } from '../types';
 
 // Globally scoped VDOM object for reference.
-let vdomTreeOriginal: IVdom;
+let DOMTree: IVdom;
 
 /**
  * This is the setter method to `set` and `freeze` the `vdomTree` Object.
  * @param tree This is the virtual DOM tree
  */
 function setVdomTree(tree: IVdom) {
-  vdomTreeOriginal = Object.freeze(tree); // Making the VDOM tree immutable
+  DOMTree = Object.freeze(tree); // Making the VDOM tree immutable
 }
 
 /**
@@ -16,7 +16,7 @@ function setVdomTree(tree: IVdom) {
  * @returns The Original DOM tree object
  */
 export function getVdomTree(): IVdom {
-  return vdomTreeOriginal;
+  return DOMTree;
 }
 
 /**
