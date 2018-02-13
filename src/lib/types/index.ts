@@ -1,5 +1,7 @@
 export interface IVdom {
   type: string;
-  props: Object;
+  props: {
+    dataId?: number;
+  };
   children: Object[];
 }

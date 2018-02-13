@@ -3,12 +3,29 @@ import { IVdom } from '../types';
 // Globally scoped VDOM object for reference.
 let DOMTree: IVdom;
 
+function traverseTree(tree: IVdom, level: number = 0, id: number = 0): IVdom {
+  const { children } = tree;
+
+  if (!tree.props.dataId) {
+    tree.props = { ...tree.props, dataId: id };
+  }
+
+  children.forEach((child: IVdom, i: number) => {
+    if (typeof child === 'string') return;
+    const newLevel = level + 1;
+    const newDataid = newLevel + parseFloat('.' + i++);
+    traverseTree(child, newLevel, newDataid);
+  });
+  return tree;
+}
+
 /**
  * This is the setter method to `set` and `freeze` the `vdomTree` Object.
  * @param tree This is the virtual DOM tree
  */
 function setVdomTree(tree: IVdom) {
-  DOMTree = Object.freeze(tree); // Making the VDOM tree immutable
+  const newTree = traverseTree(tree);
+  DOMTree = Object.freeze(newTree); // Making the VDOM tree immutable
 }
 
 /**

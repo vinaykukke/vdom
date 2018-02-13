@@ -16,6 +16,7 @@
     ["transform-react-jsx", {
       "pragma": "h.default"
     }],
-    "syntax-jsx"
+    "syntax-jsx",
+    "transform-object-rest-spread"
   ]
 }
