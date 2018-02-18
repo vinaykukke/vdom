@@ -22,7 +22,7 @@ function setVdomTree(tree: IVdom) {
 }
 
 function diffChildren(oldNode, newNode) {
-  
+  console.log(oldNode, newNode);
 }
 
 /**
@@ -67,8 +67,8 @@ function changed(oldNode, newNode) {
  * @param newNode The `newNode` with all the changes
  * @param oldNode The `oldNode`to compare wtih the `newNodes`
  */
-function diff(node?: IVdom) {
-  const oldNode: IVdom = getVdomTree();
+function diff(oldNode?: IVdom, node?: IVdom) {
+  oldNode = oldNode ? oldNode : getVdomTree();
 
   if (!oldNode) {
     return { type: CREATE, node }

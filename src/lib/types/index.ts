@@ -3,5 +3,5 @@ export interface IVdom {
   props: {
     dataId?: number;
   };
-  children: Object[];
+  children: IVdom[];
 }

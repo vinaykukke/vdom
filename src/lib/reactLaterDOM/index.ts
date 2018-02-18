@@ -1,22 +1,69 @@
-import { IVdom } from '../types';
+import { IVdom } from 'Lib/types';
+import Queue from 'Lib/reactLater/queue';
 
 // Globally scoped VDOM object for reference.
 let DOMTree: IVdom;
+const queue = new Queue;
 
-function traverseTree(tree: IVdom, level: number = 0, id: number = 0): IVdom {
-  const { children } = tree;
+/**
+ * This function checks if the `dataId` prop exists or not on a given node.
+ * It will return `true` only if the `dataId` prop is missing.
+ * @param node This is a node of type `IVdom`
+ * @returns `boolean` indicating whether or not `dataId` exists on the given node.
+ */
+function dataIdMissing(node: IVdom): boolean {
+  return (node.props.dataId === null || node.props.dataId === undefined);
+}
 
-  if (!tree.props.dataId) {
-    tree.props = { ...tree.props, dataId: id };
+/**
+ * This function adds the `dataId` prop to all the items in the `queue`.
+ * Since the `queue.items` array only holds a reference to the original `nodes` in the tree,
+ * any mutations to the items in the `queue` will result in respective mutations
+ * in the original tree.
+ * @param level The `level` of the tree that you are currently in
+ */
+function addId(level: number) {
+  if (!queue.isEmpty()) {
+    const items: IVdom[] = queue.items;
+
+    items.forEach((item: IVdom, i: number) => {
+      if (typeof item === 'string') return;
+      if (dataIdMissing(item)) {
+        const dataId = level + parseFloat('.' + i++);
+        item.props = { ...item.props, dataId };
+      }
+    });
   }
+}
 
-  children.forEach((child: IVdom, i: number) => {
-    if (typeof child === 'string') return;
-    const newLevel = level + 1;
-    const newDataid = newLevel + parseFloat('.' + i++);
-    traverseTree(child, newLevel, newDataid);
-  });
-  return tree;
+/**
+ * This function adds a given `node` to the `queue`
+ * @param node A `node` of type `IVdom` that needs to be added to the `queue`
+ * @param level The level that this node exists in.
+ */
+function addNodeToQueue(node: IVdom, level: number) {
+  const { children } = node;
+  if (dataIdMissing(node)) {
+    queue.enqueue(node);
+    addId(level);
+  } else {
+    children.forEach((child: IVdom) => {
+      if (typeof child === 'string') return;
+      if (dataIdMissing(child)) {
+        queue.enqueue(child);
+      }
+    });
+    addId(level++);
+  }
+}
+
+// The only thing is to dequeue the queue correctly so the id can be correctly numbered
+function traverse(node: IVdom, level: number = 1): IVdom {
+  if (typeof node === 'string') return;
+  const { children } = node;
+  addNodeToQueue(node, level);
+  children.forEach((child: IVdom) => traverse(child, level));
+  return node;
 }
 
 /**
@@ -24,8 +71,8 @@ function traverseTree(tree: IVdom, level: number = 0, id: number = 0): IVdom {
  * @param tree This is the virtual DOM tree
  */
 function setVdomTree(tree: IVdom) {
-  const newTree = traverseTree(tree);
-  DOMTree = Object.freeze(newTree); // Making the VDOM tree immutable
+  if (dataIdMissing(tree)) { tree.props = { ...tree.props, dataId: 0 }; }
+  DOMTree = Object.freeze(traverse(tree)); // Making the VDOM tree immutable
 }
 
 /**

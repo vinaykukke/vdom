@@ -34,7 +34,7 @@ class Form extends Component {
           <div>level</div>
         </div>
       </div>
-      <input type='text' placeholder='Enter you name' state={this.state}/>
+      <input type='text' placeholder='Enter you name' />
       <input type='password' placeholder='Enter you password' />
       <button onClick={this.someFunc.bind(this)}>Submit</button>
     </div>
