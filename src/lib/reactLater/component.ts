@@ -8,7 +8,6 @@ import { getVdomTree } from 'Lib/reactLaterDOM';
 export default class Component {
   public props: Object;
   public state: any;
-  private isDirty: boolean;
   
   constructor(props) {
     this.props = props;
@@ -16,7 +15,6 @@ export default class Component {
 
   public setState(state: Object) {
     this.state = state;
-    this.markDirty();
     // const patches = diff(this.render());
     // console.log(this.render());
 
@@ -25,9 +23,5 @@ export default class Component {
     // and look through the frozen vdom and find this object of data-id.
     // clone the frozen vdom object with object.assign and in the new object replace
     // the node of data-id which will give you a new vdom object. 
-  }
-
-  private markDirty() {
-    this.isDirty = true;
   }
 }

@@ -47,22 +47,30 @@ function addNodeToQueue(node: IVdom, level: number) {
     queue.enqueue(node);
     addId(level);
   } else {
+    // TODO: Must perform the add childern only when the queue is empty
+    // Possible solution could be to implement it with a promise.
     children.forEach((child: IVdom) => {
       if (typeof child === 'string') return;
-      if (dataIdMissing(child)) {
-        queue.enqueue(child);
-      }
+      if (dataIdMissing(child)) { queue.enqueue(child); }
     });
     addId(level++);
   }
 }
 
-// The only thing is to dequeue the queue correctly so the id can be correctly numbered
+/**
+ * This function traverses the whole `VDOM` tree and adds a `dataId` property
+ * to each node in the tree, using a `breadth first search`. So all the children 
+ * on the same level will have a unique id associated with them, increasing from left to right.
+ * @param node A `node` of type `IVdom` that you want to traverse. 
+ * This traversal includes the `node` and all its `children`.
+ * @param level This is the `depth` fo the node on the tree.
+ */
 function traverse(node: IVdom, level: number = 1): IVdom {
   if (typeof node === 'string') return;
   const { children } = node;
   addNodeToQueue(node, level);
   children.forEach((child: IVdom) => traverse(child, level));
+  queue.dequeue();
   return node;
 }
 
@@ -132,7 +140,7 @@ export function createElement(node: IVdom): HTMLElement | Text {
 
 /** 
  * Should take an element and render it to the rootElement.
- * @param {HTMLElement} element This is the `VDOM JS Object`.
+ * @param element This is the `VDOM JS Object`.
  * At the time of render this object will contain the entire VDOM.
  * */
 export function render(element: IVdom, rootElement: HTMLElement) {
