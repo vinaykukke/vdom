@@ -41,20 +41,23 @@ function addId(level: number) {
  * @param node A `node` of type `IVdom` that needs to be added to the `queue`
  * @param level The level that this node exists in.
  */
-function addNodeToQueue(node: IVdom, level: number) {
+function addNodeToQueue(node: IVdom, level: number): Promise<number> {
   const { children } = node;
-  if (dataIdMissing(node)) {
-    queue.enqueue(node);
-    addId(level);
-  } else {
-    // TODO: Must perform the add childern only when the queue is empty
-    // Possible solution could be to implement it with a promise.
-    children.forEach((child: IVdom) => {
-      if (typeof child === 'string') return;
-      if (dataIdMissing(child)) { queue.enqueue(child); }
-    });
-    addId(level++);
-  }
+
+  return new Promise((resolve, reject) => {
+    if (dataIdMissing(node)) {
+      queue.enqueue(node);
+      // addId(level);
+      resolve(level);
+    } else {
+      children.forEach((child: IVdom) => {
+        if (typeof child === 'string') return;
+        if (dataIdMissing(child)) { queue.enqueue(child); }
+      });
+      // addId(level++);
+      resolve(level++);
+    }
+  });
 }
 
 /**
@@ -68,10 +71,10 @@ function addNodeToQueue(node: IVdom, level: number) {
 function traverse(node: IVdom, level: number = 1): IVdom {
   if (typeof node === 'string') return;
   const { children } = node;
-  addNodeToQueue(node, level);
-  children.forEach((child: IVdom) => traverse(child, level));
-  queue.dequeue();
-  return node;
+  addNodeToQueue(node, level).then(addId).then(() => {
+    children.forEach((child: IVdom) => traverse(child, level));
+    queue.dequeue();
+  });
 }
 
 /**
@@ -80,7 +83,8 @@ function traverse(node: IVdom, level: number = 1): IVdom {
  */
 function setVdomTree(tree: IVdom) {
   if (dataIdMissing(tree)) { tree.props = { ...tree.props, dataId: 0 }; }
-  DOMTree = Object.freeze(traverse(tree)); // Making the VDOM tree immutable
+  traverse(tree);
+  DOMTree = Object.freeze(tree); // Making the VDOM tree immutable
 }
 
 /**
